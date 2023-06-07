@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Conversor de Números Romanos</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .converter {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .converter input {
+        width: 200px;
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      .converter button {
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+
+      .result {
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Conversor de Números Romanos</h1>
+    <div class="converter">
+      <input
+        type="text"
+        id="inputNumber"
+        placeholder="Digite um número romano ou arábico"
+      />
+      <button onclick="convert()">Converter</button>
+    </div>
+    <div class="result">
+      <p id="resultText"></p>
+    </div>
+
+    <script>
+      function convert() {
+        const inputNumber = document.getElementById("inputNumber").value;
+        const resultText = document.getElementById("resultText");
+
+        if (inputNumber.match(/^[IVXLCDMivxlcdm]+$/)) {
+          const arabicNumber = romanToArabic(inputNumber.toUpperCase());
+          resultText.textContent = `O número romano ${inputNumber} é igual a ${arabicNumber} em arábico.`;
+        } else if (inputNumber.match(/^[0-9]+$/)) {
+          const romanNumber = arabicToRoman(parseInt(inputNumber));
+          resultText.textContent = `O número arábico ${inputNumber} é igual a ${romanNumber} em romano.`;
+        } else {
+          resultText.textContent =
+            "Por favor, digite um número romano ou arábico válido.";
+        }
+      }
+
+      function romanToArabic(romanNumber) {
+        const romanSymbols = {
+          I: 1,
+          V: 5,
+          X: 10,
+          L: 50,
+          C: 100,
+          D: 500,
+          M: 1000,
+        };
+
+        let result = 0;
+        let previousValue = 0;
+
+        for (let i = romanNumber.length - 1; i >= 0; i--) {
+          const currentValue = romanSymbols[romanNumber[i]];
+
+          if (currentValue >= previousValue) {
+            result += currentValue;
+          } else {
+            result -= currentValue;
+          }
+
+          previousValue = currentValue;
+        }
+
+        return result;
+      }
+
+      function arabicToRoman(arabicNumber) {
+        return result;
+      }
+    </script>
+  </body>
+</html>
